@@ -22,5 +22,8 @@
   }
   useHead({
       title: `Product | ${product.title}`
-    })
+  })
+  definePageMeta({
+      middleware: ['test'],
+  })
 </script>
