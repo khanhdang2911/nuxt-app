@@ -5,32 +5,22 @@
 </div></template>
 
 <script setup lang="ts">
-import type { Product } from '~/interfaces/Product'
-const route = useRoute();
-const productId = ref(route.params.id as string);
+  import type { Product } from '~/interfaces/Product'
+  const route = useRoute();
+  const productId = ref(route.params.id as string);
 
-const product = reactive<Product>({
-  id: 0,
-  title: '',
-  price: 0,
-  description: '',
-  category: '',
-  image: '',
-  rating: {
-    rate: 0,
-    count: 0
-  }
-});
-onMounted(async () => {
+
   const uri = `https://fakestoreapi.com/products/${productId.value}`
   const { data } = await useFetch(uri, { key: `product-${productId.value}` });
-  if (!data.value) {
+  const product: Product = data.value as Product || {}
+  if (!product.id) {
     throw createError({
-      statusCode: 404,
-      message: 'Product not found, please try another one.',
-      fatal: true
-    })
+        statusCode: 404,
+        message: 'Product not found, please try another one.',
+        fatal: true
+      })
   }
-  Object.assign(product, data.value || {});
-})
+  useHead({
+      title: `Product | ${product.title}`
+    })
 </script>

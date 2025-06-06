@@ -2,6 +2,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  ssr: true,
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
   vite: {
@@ -19,4 +20,15 @@ export default defineNuxtConfig({
     "@nuxt/test-utils",
     "@nuxt/ui",
   ],
+  app: {
+    head: {
+      title: "Nuxt 3 Project",
+      meta: [
+        {
+          name: "description",
+          content: "A Nuxt 3 project with Tailwind CSS and various modules",
+        },
+      ],
+    },
+  },
 });
