@@ -10,18 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Product } from '~/interfaces/Product'
-definePageMeta({
-  layout:'products'
-})
+  import type { Product } from '~/interfaces/Product'
+  definePageMeta({
+    layout:'products'
+  })
 
-const products = ref<Product[]>([])
-onMounted(async () => {
+  const products = ref<Product[]>([])
   const { data } = await useFetch<Product[]>('https://fakestoreapi.com/products')
   products.value = data.value || []
-})
 </script>
-
-<style scoped>
-
-</style>
